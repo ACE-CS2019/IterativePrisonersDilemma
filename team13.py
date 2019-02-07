@@ -1,5 +1,4 @@
 import inspect
-import team5
 
 ####
 # Each team's file must define four tokens:
