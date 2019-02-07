@@ -8,10 +8,13 @@ import inspect
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'Lockstep' # Only 10 chars displayed.
-strategy_name = 'Stop copying me!!!'
-strategy_description = 'Inspect execution frame to make predictions.'
+team_name = 'Inspector Gadget' # Only 10 chars displayed.
+strategy_name = 'Force'
+strategy_description = 'Find references to override using execution frame inspection'
     
+def collude(my_history, their_history, my_score, their_score):
+    return 'c'
+
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
     my_score, their_score are ints.
@@ -23,15 +26,10 @@ def move(my_history, their_history, my_score, their_score):
     # locals of previous execution frame
     frame = inspect.currentframe().f_back.f_locals
 
-    if frame['player1'].__name__ != "team13":
-        # as player two, we can copy the opponent always,
-        # even if they don't have a deterministic strategy.
-        return frame['action1']
-    else:
-        # as player one, we can try to copy the opponents strategy.
-        # if their strategy is deterministic, this should be a copy.
-        return frame['player2'].move(their_history, my_history, their_score, my_score)
+    opponent = 'player1' if frame['player1'].__name__ != __name__ else 'player2'
+    frame[opponent].move = collude
 
+    return 'b'
 
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
