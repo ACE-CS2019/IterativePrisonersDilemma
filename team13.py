@@ -1,4 +1,5 @@
 import inspect
+import team5
 
 ####
 # Each team's file must define four tokens:
@@ -8,9 +9,9 @@ import inspect
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'lockstep' # Only 10 chars displayed.
-strategy_name = 'lockstep as p1, tit for tat as p2'
-strategy_description = 'inspect current execution frame for player ones move'
+team_name = 'Lockstep' # Only 10 chars displayed.
+strategy_name = 'Stop copying me!!!'
+strategy_description = 'Inspect execution frame to make predictions.'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
@@ -24,12 +25,13 @@ def move(my_history, their_history, my_score, their_score):
     frame = inspect.currentframe().f_back.f_locals
 
     if frame['player1'].__name__ != "team13":
-        # lockstep as p2
+        # as player two, we can copy the opponent always,
+        # even if they don't have a deterministic strategy.
         return frame['action1']
     else:
-        # tit for tat as p1
-        return their_history[-1:] or 'c'
-
+        # as player one, we can try to copy the opponents strategy.
+        # if their strategy is deterministic, this should be a copy.
+        return frame['player2'].move(my_history, their_history, my_score, their_score)
 
     # my_history: a string with one letter (c or b) per round that has been played with this opponent.
     # their_history: a string of the same length as history, possibly empty. 
