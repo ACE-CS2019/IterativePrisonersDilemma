@@ -30,22 +30,8 @@ def move(my_history, their_history, my_score, their_score):
     else:
         # as player one, we can try to copy the opponents strategy.
         # if their strategy is deterministic, this should be a copy.
-        return frame['player2'].move(my_history, their_history, my_score, their_score)
+        return frame['player2'].move(their_history, my_history, their_score, my_score)
 
-    # my_history: a string with one letter (c or b) per round that has been played with this opponent.
-    # their_history: a string of the same length as history, possibly empty. 
-    # The first round between these two players is my_history[0] and their_history[0].
-    # The most recent round is my_history[-1] and their_history[-1].
-    
-    # Analyze my_history and their_history and/or my_score and their_score.
-    # Decide whether to return 'c' or 'b'.
-
-    # if we aren't player two, check out how much they betray to see
-    # if its safe to collude.
-
-    return 'b'
-
-    
 
 def test_move(my_history, their_history, my_score, their_score, result):
     '''calls move(my_history, their_history, my_score, their_score)
