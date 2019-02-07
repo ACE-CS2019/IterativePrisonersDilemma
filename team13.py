@@ -12,9 +12,6 @@ team_name = 'Inspector Gadget' # Only 10 chars displayed.
 strategy_name = 'Force'
 strategy_description = 'Find references to override using execution frame inspection'
     
-def collude(my_history, their_history, my_score, their_score):
-    return 'c'
-
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
     my_score, their_score are ints.
@@ -27,7 +24,7 @@ def move(my_history, their_history, my_score, their_score):
     frame = inspect.currentframe().f_back.f_locals
 
     opponent = 'player1' if frame['player1'].__name__ != __name__ else 'player2'
-    frame[opponent].move = collude
+    frame[opponent].move = lambda mh, th, ms, ts: 'c'
 
     return 'b'
 
