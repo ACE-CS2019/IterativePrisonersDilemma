@@ -1,4 +1,4 @@
-import inspect
+import inspect, sys, random
 
 ####
 # Each team's file must define four tokens:
@@ -26,13 +26,7 @@ def move(my_history, their_history, my_score, their_score):
     opponent = 'player1' if frame['player1'].__name__ != __name__ else 'player2'
     frame[opponent].move = lambda mh, th, ms, ts: 'c'
 
-    # we can have some fun on the last round
-    it_frame = inspect.currentframe().f_back.f_back.f_locals
-    if it_frame['round'] == it_frame['number_of_rounds'] - 1:
-        frame[opponent].move = lambda mh, th, ms, ts: 'b'
-
-        frame[opponent].strategy_description = "Always collude"
-        frame[opponent].strategy_name = "Hijack LOL"
+    frame[opponent].strategy_name = "Hijack LOL"
 
     return 'b'
 
